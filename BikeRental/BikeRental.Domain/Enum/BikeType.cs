@@ -1,7 +1,7 @@
-﻿namespace BikeRental.Domain.Models;
+﻿namespace BikeRental.Domain.Enum;
 
 /// <summary>
-/// Represents the type of a bike.
+/// Represents the type of bike.
 /// </summary>
 public enum BikeType
 {

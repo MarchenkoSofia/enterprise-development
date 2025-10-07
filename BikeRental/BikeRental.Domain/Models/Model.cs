@@ -1,10 +1,11 @@
-﻿namespace BikeRental.Domain.Models;
+﻿using BikeRental.Domain.Enum;
+
+namespace BikeRental.Domain.Models;
 
 /// <summary>
 /// A class describing the characteristics of the model.
 /// </summary>
 public class Model
-public class BikeModel
 {
     /// <summary>
     /// Unique identifier of the bike model.
