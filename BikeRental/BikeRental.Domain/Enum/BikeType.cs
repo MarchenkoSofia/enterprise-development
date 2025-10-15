@@ -8,7 +8,7 @@ public enum BikeType
     /// <summary>
     /// Designed for road riding.
     /// </summary>
-    Road,
+    City,
 
     /// <summary>
     /// Built for off-road terrain.
@@ -16,9 +16,9 @@ public enum BikeType
     Mountain,
 
     /// <summary>
-    /// Made for high-speed racing.
+    /// Made for high-speed sport racing.
     /// </summary>
-    Speed,
+    Sport,
 
     /// <summary>
     /// Used for track cycling.

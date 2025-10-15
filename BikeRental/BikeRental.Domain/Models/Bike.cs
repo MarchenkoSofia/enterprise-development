@@ -13,7 +13,7 @@ public class Bike
     /// <summary>
     /// Bike serial number.
     /// </summary>
-    public required int SerialNumber { get; set; }
+    public required string SerialNumber { get; set; }
 
     /// <summary>
     /// The color the bike is painted in.
