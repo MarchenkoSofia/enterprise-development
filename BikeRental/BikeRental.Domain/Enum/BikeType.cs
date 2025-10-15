@@ -1,37 +1,37 @@
 ﻿namespace BikeRental.Domain.Enum;
 
 /// <summary>
-/// Represents the type of bike.
+///     Represents the type of bike.
 /// </summary>
 public enum BikeType
 {
     /// <summary>
-    /// Designed for road riding.
+    ///     Designed for road riding.
     /// </summary>
     City,
 
     /// <summary>
-    /// Built for off-road terrain.
+    ///     Built for off-road terrain.
     /// </summary>
     Mountain,
 
     /// <summary>
-    /// Made for high-speed sport racing.
+    ///     Made for high-speed sport racing.
     /// </summary>
     Sport,
 
     /// <summary>
-    /// Used for track cycling.
+    ///     Used for track cycling.
     /// </summary>
     Track,
 
     /// <summary>
-    /// Features electric motor assistance.
+    ///     Features electric motor assistance.
     /// </summary>
     Electric,
 
     /// <summary>
-    /// Child-sized bike.
+    ///     Child-sized bike.
     /// </summary>
     Mini
 }

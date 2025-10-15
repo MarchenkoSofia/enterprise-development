@@ -1,22 +1,20 @@
+using BikeRental.Domain.DataSeed;
 using BikeRental.Domain.Enum;
-using BikeRental.Tests.Seed;
 
 namespace BikeRental.Tests;
 
 /// <summary>
-/// Contains a collection of analytical unit tests based on <see cref="DataSeed"/> data.
+///     Contains a collection of analytical unit tests based on <see cref="DataSeed" /> data.
 /// </summary>
-public class BikeRentalTests
+public class BikeRentalTests(DataSeed seed) : IClassFixture<DataSeed>
 {
-    private readonly DataSeed _seed = new();
-
     /// <summary>
-    /// Verifies that all bikes of type BikeType.Sport are correctly selected.
+    ///     Verifies that all bikes of type BikeType.Sport are correctly selected.
     /// </summary>
     [Fact(DisplayName = "Sport Bikes - Verify Model List")]
     public void InformationAboutSportBikes()
     {
-        var sportBikes = _seed.Bikes
+        var sportBikes = seed.Bikes
             .Where(b => b.Model.BikeType == BikeType.Sport)
             .Select(b => new
             {
@@ -24,7 +22,7 @@ public class BikeRentalTests
                 b.SerialNumber,
                 b.Color,
                 ModelId = b.Model.Id,
-                Type = b.Model.BikeType,
+                Type = b.Model.BikeType
             })
             .ToList();
 
@@ -35,12 +33,12 @@ public class BikeRentalTests
     }
 
     /// <summary>
-    /// Calculates total rental revenue per model and validates the top 5 models.
+    ///     Calculates total rental revenue per model and validates the top 5 models.
     /// </summary>
     [Fact(DisplayName = "Top 5 Models by Revenue")]
     public void TopFiveModelsByRevenue()
     {
-        var revenueByModel = _seed.Rents
+        var revenueByModel = seed.Rents
             .GroupBy(r => r.Bike.Model.Id)
             .Select(g => new
             {
@@ -64,16 +62,18 @@ public class BikeRentalTests
         };
 
         foreach (var row in revenueByModel)
+        {
             Assert.Equal(expectedRevenue[row.ModelId], Math.Round(row.Revenue, 2));
+        }
     }
 
     /// <summary>
-    /// Calculates the total rental duration for each model and checks the top 5 models.
+    ///     Calculates the total rental duration for each model and checks the top 5 models.
     /// </summary>
     [Fact(DisplayName = "Top 5 Models by Total Rental Duration")]
     public void TopFiveModelsByTotalDuration()
     {
-        var durationByModel = _seed.Rents
+        var durationByModel = seed.Rents
             .GroupBy(r => r.Bike.Model.Id)
             .Select(g => new
             {
@@ -89,12 +89,12 @@ public class BikeRentalTests
     }
 
     /// <summary>
-    /// Validates minimum, maximum, and average rental duration across all rental records.
+    ///     Validates minimum, maximum, and average rental duration across all rental records.
     /// </summary>
     [Fact(DisplayName = "Min / Max / Avg Rental Duration")]
     public void MinMaxAvgRentalDuration()
     {
-        var durations = _seed.Rents.Select(r => r.Duration).ToArray();
+        var durations = seed.Rents.Select(r => r.Duration).ToArray();
 
         var min = durations.Min();
         var max = durations.Max();
@@ -106,7 +106,7 @@ public class BikeRentalTests
     }
 
     /// <summary>
-    /// Verifies the total rental time for each bike type.
+    ///     Verifies the total rental time for each bike type.
     /// </summary>
     [Theory(DisplayName = "Total Rental Time per Bike Type")]
     [InlineData(BikeType.Mountain, 10)]
@@ -117,7 +117,7 @@ public class BikeRentalTests
     [InlineData(BikeType.Electric, 9)]
     public void TotalRentalTimeByType(BikeType type, int expectedHours)
     {
-        var actualHours = _seed.Rents
+        var actualHours = seed.Rents
             .Where(rent => rent.Bike.Model.BikeType == type)
             .Sum(rent => rent.Duration);
 
@@ -125,12 +125,12 @@ public class BikeRentalTests
     }
 
     /// <summary>
-    /// Determines the clients who rented bikes the most times,
+    ///     Determines the clients who rented bikes the most times,
     /// </summary>
     [Fact(DisplayName = "Clients with the Highest Number of Rentals")]
     public void TopClientsByRentalCount()
     {
-        var counts = _seed.Rents
+        var counts = seed.Rents
             .GroupBy(r => r.Renter.Id)
             .Select(g => new
             {
