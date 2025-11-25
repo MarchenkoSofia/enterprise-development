@@ -29,6 +29,4 @@ public class Renter
     ///     Phone number of the renter.
     /// </summary>
     public required string PhoneNumber { get; set; }
-    
-    public ICollection<Rent> Rents { get; set; } = new List<Rent>();
 }

@@ -46,6 +46,4 @@ public class Model
     ///     Type of the bike.
     /// </summary>
     public required BikeType BikeType { get; set; }
-    
-    public ICollection<Bike> Bikes { get; set; } = new List<Bike>();
 }
