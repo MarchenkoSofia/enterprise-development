@@ -24,4 +24,6 @@ public class Bike
     ///     Bike <see cref="Model" />.
     /// </summary>
     public required Model Model { get; set; }
+    
+    public ICollection<Rent> Rents { get; set; } = new List<Rent>();
 }
