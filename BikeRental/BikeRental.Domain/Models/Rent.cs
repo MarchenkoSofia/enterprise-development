@@ -21,9 +21,19 @@ public class Rent
     public required int Duration { get; set; }
 
     /// <summary>
+    ///     Unique identifier of the bike.
+    /// </summary>
+    public required int BikeId { get; set; }
+
+    /// <summary>
     ///     <see cref="Bike" /> for Rent.
     /// </summary>
     public required Bike Bike { get; set; }
+
+    /// <summary>
+    ///     Unique identifier of the renter.
+    /// </summary>
+    public required int RenterId { get; set; }
 
     /// <summary>
     ///     <see cref="Renter" /> to whom it is Rent.

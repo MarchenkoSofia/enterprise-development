@@ -21,6 +21,11 @@ public class Bike
     public string? Color { get; set; }
 
     /// <summary>
+    ///   Identifier of the bike model. />.
+    /// </summary>
+    public required int ModelId { get; set; }
+
+    /// <summary>
     ///     Bike <see cref="Model" />.
     /// </summary>
     public required Model Model { get; set; }

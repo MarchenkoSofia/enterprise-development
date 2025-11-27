@@ -1,7 +1,5 @@
 ﻿using BikeRental.Application.Contracts.Bike;
-using BikeRental.Application.Contracts.Model;
-using BikeRental.Application.Contracts.Rent;
-using BikeRental.Application.Contracts.Rental;
+using BikeRental.Application.Contracts.Renter;
 using BikeRental.Domain.Enum;
 
 namespace BikeRental.Application.Contracts;
