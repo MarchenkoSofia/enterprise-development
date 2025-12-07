@@ -22,12 +22,10 @@ public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
             builder.HasKey(b => b.Id);
 
             builder.HasOne(b => b.Model)
-                   .WithMany(m => m.Bikes)
-                   .IsRequired();
-
-            builder.HasMany(b => b.Rents)
-                   .WithOne(r => r.Bike)
-                   .IsRequired();
+                   .WithMany()
+                   .HasForeignKey(b => b.ModelId)
+                   .IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
         });
 
         // Модели велосипедов
@@ -35,11 +33,8 @@ public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
         {
             builder.HasKey(m => m.Id);
 
-            builder.HasMany(m => m.Bikes)
-                   .WithOne(b => b.Model)
-                   .IsRequired();
-        
-       
+            builder.Property(m => m.PricePerHour)
+                   .HasPrecision(10, 2);
         });
 
         // Аренды
@@ -48,12 +43,16 @@ public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
             builder.HasKey(r => r.Id);
 
             builder.HasOne(r => r.Bike)
-                   .WithMany(b => b.Rents)
-                   .IsRequired();
+                   .WithMany()
+                   .HasForeignKey(r => r.BikeId)
+                   .IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(r => r.Renter)
-                   .WithMany(r => r.Rents)
-                   .IsRequired();
+                   .WithMany()
+                   .HasForeignKey(r => r.RenterId)
+                   .IsRequired()
+                   .OnDelete(DeleteBehavior.Restrict);
         });
 
         // Арендаторы
@@ -61,10 +60,20 @@ public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
         {
             builder.HasKey(r => r.Id);
 
-            builder.HasIndex(r => r.PhoneNumber).IsUnique();
+            builder.HasIndex(r => r.PhoneNumber)
+                   .IsUnique();
 
-            builder.HasMany(r => r.Rents)
-                   .WithOne(rent => rent.Renter);
+            builder.Property(r => r.PhoneNumber)
+                   .HasMaxLength(20);
+
+            builder.Property(r => r.LastName)
+                   .HasMaxLength(100);
+
+            builder.Property(r => r.Name)
+                   .HasMaxLength(100);
+
+            builder.Property(r => r.MiddleName)
+                   .HasMaxLength(100);
         });
     }
 }

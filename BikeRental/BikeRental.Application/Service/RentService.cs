@@ -3,6 +3,8 @@ using BikeRental.Application.Contracts.Rent;
 using BikeRental.Domain;
 using BikeRental.Domain.Models;
 
+
+namespace BikeRental.Application.Service;
 public class RentService(
     IRepository<Rent, int> rentRepository,
     IMapper mapper
@@ -58,7 +60,7 @@ public class RentService(
         var all = await rentRepository.ReadAll();
 
         var grouped = all
-            .GroupBy(r => r.BikeId) // исправлено — группировка по BikeId
+            .GroupBy(r => r.BikeId) 
             .Select(g => new KeyValuePair<int, IList<RentDto>>(
                 g.Key,
                 mapper.Map<List<RentDto>>(g.ToList())

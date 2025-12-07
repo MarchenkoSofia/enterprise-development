@@ -137,11 +137,12 @@ public class DataSeed
         ]);
 
         Bikes.AddRange([
-            new Bike
+           new Bike
             {
                 Id = 1,
                 SerialNumber = "202501001",
                 Color = "Black",
+                ModelId = 1,
                 Model = Models[0]
             },
             new Bike
@@ -149,27 +150,31 @@ public class DataSeed
                 Id = 2,
                 SerialNumber = "2024R01015",
                 Color = "Red",
+                ModelId = 2,
                 Model = Models[1]
             },
-           new Bike
+            new Bike
             {
                 Id = 3,
                 SerialNumber = "2023X03210",
                 Color = "Blue",
+                ModelId = 3,
                 Model = Models[2]
             },
-           new Bike
+            new Bike
             {
                 Id = 4,
                 SerialNumber = "2025B05077",
                 Color = "Olive",
+                ModelId = 4,
                 Model = Models[3]
             },
-           new Bike
+            new Bike
             {
                 Id = 5,
                 SerialNumber = "2022G06342",
                 Color = "Yellow",
+                ModelId = 5,
                 Model = Models[4]
             },
             new Bike
@@ -177,27 +182,31 @@ public class DataSeed
                 Id = 6,
                 SerialNumber = "2021W08908",
                 Color = "White",
+                ModelId = 6,
                 Model = Models[5]
             },
-           new Bike
+            new Bike
             {
                 Id = 7,
                 SerialNumber = "2024O04556",
                 Color = "Orange",
+                ModelId = 7,
                 Model = Models[6]
             },
-           new Bike
+            new Bike
             {
                 Id = 8,
                 SerialNumber = "2023G09999",
                 Color = "Graphite",
+                ModelId = 8,
                 Model = Models[7]
             },
-           new Bike
+            new Bike
             {
                 Id = 9,
                 SerialNumber = "2025S01555",
                 Color = "Silver",
+                ModelId = 9,
                 Model = Models[8]
             },
             new Bike
@@ -205,6 +214,7 @@ public class DataSeed
                 Id = 10,
                 SerialNumber = "2022T12640",
                 Color = "Turquoise",
+                ModelId = 10,
                 Model = Models[9]
             }
         ]);
@@ -324,11 +334,11 @@ public class DataSeed
     /// <param name="bikeIndex">Bike index in the Bikes collection.</param>
     /// <param name="renterIndex">Renter index in the Renters collection.</param>
     private void CreateRent(
-    int id,
-    DateTime startTime,
-    int duration,
-    int bikeIndex,
-    int renterIndex)
+        int id,
+        DateTime startTime,
+        int duration,
+        int bikeIndex,
+        int renterIndex)
     {
         var bike = Bikes.ElementAtOrDefault(bikeIndex)
             ?? throw new InvalidOperationException($"Bike at index {bikeIndex} not found in Bikes collection.");
@@ -341,7 +351,9 @@ public class DataSeed
             Id = id,
             StartTime = startTime,
             Duration = duration,
+            BikeId = bike.Id,
             Bike = bike,
+            RenterId = renter.Id,
             Renter = renter
         };
 

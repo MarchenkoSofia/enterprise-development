@@ -1,6 +1,5 @@
 ﻿using BikeRental.Application.Contracts.Bike;
 using BikeRental.Application.Contracts.Renter;
-using BikeRental.Domain.Enum;
 
 namespace BikeRental.Application.Contracts;
 
@@ -37,7 +36,7 @@ namespace BikeRental.Application.Contracts;
     /// Получает суммарное время аренды (в часах) для указанного типа велосипеда.
     /// </summary>
     /// <param name="type">Тип велосипеда</param>
-    public Task<int> GetTotalRentalTimeByTypeAsync(BikeType type);
+    public Task<int> GetTotalRentalTimeByTypeAsync(int type);
 
     /// <summary>
     /// Получает клиентов с наибольшим числом аренд.

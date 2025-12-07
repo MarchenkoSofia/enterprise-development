@@ -4,6 +4,7 @@ using BikeRental.Application.Contracts.Model;
 using BikeRental.Domain;
 using BikeRental.Domain.Models;
 
+namespace BikeRental.Application.Service;
 public class ModelService(
     IRepository<Model, int> modelRepository,
     IRepository<Bike, int> bikeRepository,

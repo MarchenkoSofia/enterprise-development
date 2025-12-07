@@ -4,5 +4,7 @@ public record class RentDto(
     DateTime StartTime,
     int Duration,
     int BikeId,
-    int RenterId
+    int RenterId,
+    decimal PricePerHour = 0m,
+    decimal TotalPrice = 0m
 );

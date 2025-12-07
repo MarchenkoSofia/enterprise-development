@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeRental.Tests", "BikeRen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeRental.Application", "BikeRental.Application\BikeRental.Application.csproj", "{AA962184-5EAD-44DB-B53B-3C713158FC8C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeRental.Api", "BikeRental.Api\BikeRental.Api.csproj", "{FA9664F6-908A-44C3-BD11-F0EAB37E7A1B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRenter.ServiceDefaults", "BikeRenter.ServiceDefaults\BikeRenter.ServiceDefaults.csproj", "{84ABFAED-7589-4973-ABB2-B2C479A01539}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.Infrastructure.EfCore", "BikeRental.Infrastructure.EfCore\BikeRental.Infrastructure.EfCore.csproj", "{00716DFA-B12C-4804-8F24-4A6D63D6CAE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.Application.Contracts", "BikeRental.Application.Contracts\BikeRental.Application.Contracts.csproj", "{B8F4271E-CE71-4453-AD85-2C8CCDF1C938}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.Api", "BikeRental.Api\BikeRental.Api.csproj", "{0F3F7426-3844-435D-B34A-68C847CA5E6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		{AA962184-5EAD-44DB-B53B-3C713158FC8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA962184-5EAD-44DB-B53B-3C713158FC8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA962184-5EAD-44DB-B53B-3C713158FC8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA9664F6-908A-44C3-BD11-F0EAB37E7A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA9664F6-908A-44C3-BD11-F0EAB37E7A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA9664F6-908A-44C3-BD11-F0EAB37E7A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA9664F6-908A-44C3-BD11-F0EAB37E7A1B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84ABFAED-7589-4973-ABB2-B2C479A01539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84ABFAED-7589-4973-ABB2-B2C479A01539}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84ABFAED-7589-4973-ABB2-B2C479A01539}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{B8F4271E-CE71-4453-AD85-2C8CCDF1C938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F4271E-CE71-4453-AD85-2C8CCDF1C938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F4271E-CE71-4453-AD85-2C8CCDF1C938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F3F7426-3844-435D-B34A-68C847CA5E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F3F7426-3844-435D-B34A-68C847CA5E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F3F7426-3844-435D-B34A-68C847CA5E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F3F7426-3844-435D-B34A-68C847CA5E6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

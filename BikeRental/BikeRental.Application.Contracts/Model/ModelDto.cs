@@ -1,6 +1,4 @@
-﻿using BikeRental.Domain.Enum;
-
-namespace BikeRental.Application.Contracts.Model;
+﻿namespace BikeRental.Application.Contracts.Model;
 public record ModelDto(
     int Id,
     double? WheelSize,
@@ -9,5 +7,5 @@ public record ModelDto(
     string? BrakeType,
     int? ModelYear,
     decimal PricePerHour,
-    BikeType BikeType
+    int BikeType
 );

@@ -1,5 +1,4 @@
-﻿using BikeRental.Domain.Enum;
-
+﻿
 namespace BikeRental.Application.Contracts.Model;
 
 /// <summary>
@@ -12,5 +11,5 @@ public record ModelCreateUpdateDto(
     string? BrakeType,
     int? ModelYear,
     decimal PricePerHour, 
-    BikeType BikeType
+    int? BikeType
 );

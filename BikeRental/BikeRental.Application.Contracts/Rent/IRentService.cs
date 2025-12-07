@@ -14,9 +14,4 @@ public interface IRentService : IApplicationService<RentDto, RentCreateUpdateDto
     /// </summary>
     public Task<IList<RentDto>> GetRentsByRenterAsync(int renterId);
 
-    /// <summary>
-    /// Получает все аренды, сгруппированные по идентификатору модели велосипеда.
-    /// Удобно для вычисления выручки/времени по модели.
-    /// </summary>
-    public Task<IList<KeyValuePair<int, IList<RentDto>>>> GetRentsGroupedByModelAsync();
 }

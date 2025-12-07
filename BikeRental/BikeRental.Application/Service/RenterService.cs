@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using BikeRental.Application.Contracts;
 using BikeRental.Application.Contracts.Rent;
 using BikeRental.Application.Contracts.Renter;
 using BikeRental.Domain;
 using BikeRental.Domain.Models;
 
+namespace BikeRental.Application.Service;
 public class RenterService(
     IRepository<Renter, int> renterRepository,
     IRepository<Rent, int> rentRepository,

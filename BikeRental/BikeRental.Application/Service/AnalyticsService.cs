@@ -6,6 +6,8 @@ using BikeRental.Domain;
 using BikeRental.Domain.Enum;
 using BikeRental.Domain.Models;
 
+namespace BikeRental.Application.Service;
+
 public class AnalyticsService(
     IRepository<Bike, int> bikeRepository,
     IRepository<Rent, int> rentRepository,
@@ -62,11 +64,11 @@ public class AnalyticsService(
         return (arr.Min(), arr.Max(), Math.Round(arr.Average(), 2));
     }
 
-    public async Task<int> GetTotalRentalTimeByTypeAsync(BikeType type)
+    public async Task<int> GetTotalRentalTimeByTypeAsync(int type)
     {
         var rents = await rentRepository.ReadAll();
         return rents
-            .Where(r => r.Bike.Model.BikeType == type)
+            .Where(r => (int)r.Bike.Model.BikeType == type)
             .Sum(r => r.Duration);
     }
 

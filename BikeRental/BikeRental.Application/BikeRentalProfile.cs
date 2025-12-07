@@ -19,7 +19,7 @@ public class BikeRentalProfile : Profile
         //
         CreateMap<Model, ModelDto>();
         CreateMap<ModelCreateUpdateDto, Model>();
-
+    
 
         //
         // ВЕЛОСИПЕДЫ

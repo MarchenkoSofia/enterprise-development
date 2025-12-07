@@ -1,42 +1,42 @@
 ﻿namespace BikeRental.Domain.Models;
 
 /// <summary>
-///     The class describing the fact of renting a bike by a renter.
+/// The class describing the fact of renting a bike by a renter.
 /// </summary>
 public class Rent
 {
     /// <summary>
-    ///     Unique identifier of the rent.
+    /// Unique identifier of the rent.
     /// </summary>
     public required int Id { get; set; }
 
     /// <summary>
-    ///     Start time of the rental.
+    /// Start time of the rental.
     /// </summary>
     public required DateTime StartTime { get; set; }
 
     /// <summary>
-    ///     Duration of the rental (in hours).
+    /// Duration of the rental (in hours).
     /// </summary>
     public required int Duration { get; set; }
 
     /// <summary>
-    ///     Unique identifier of the bike.
+    /// Unique identifier of the bike.
     /// </summary>
     public required int BikeId { get; set; }
 
     /// <summary>
-    ///     <see cref="Bike" /> for Rent.
+    /// Bike navigation property for Rent.
     /// </summary>
-    public required Bike Bike { get; set; }
+    public required virtual Bike Bike { get; set; }
 
     /// <summary>
-    ///     Unique identifier of the renter.
+    /// Unique identifier of the renter.
     /// </summary>
     public required int RenterId { get; set; }
 
     /// <summary>
-    ///     <see cref="Renter" /> to whom it is Rent.
+    /// Renter to whom it is Rent.
     /// </summary>
-    public required Renter Renter { get; set; }
+    public required virtual Renter Renter { get; set; }
 }
