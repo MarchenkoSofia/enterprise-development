@@ -5,7 +5,7 @@ public interface IApplicationService<TDto, TCreateUpdateDto, TKey>
  where TKey : struct
 {
     /// <summary>
-    /// Создание DTO
+    /// Creating a DTO
     /// </summary>
     /// <param name="dto">DTO</param>
     /// <returns></returns>
@@ -35,6 +35,6 @@ public interface IApplicationService<TDto, TCreateUpdateDto, TKey>
     /// <summary>
     /// Delete DTO
     /// </summary>
-    /// <param name="dtoId">Идентификатор DTO</param>
+    /// <param name="dtoId">DTO ID</param>
     public Task<bool> Delete(TKey dtoId);
 }

@@ -1,12 +1,11 @@
-﻿
-namespace BikeRental.Application.Contracts.Renter;
+﻿namespace BikeRental.Application.Contracts.Renter;
 /// <summary>
-/// Сервис для работы с арендаторами (клиентами).
+/// Service for working with tenants (customers).
 /// </summary>
 public interface IRenterService : IApplicationService<RenterDto, RenterCreateUpdateDto, int>
 {
     /// <summary>
-    /// Получает все аренды указанного клиента.
+    /// Gets all the rentals of the specified customer.
     /// </summary>
     public Task<IList<Rent.RentDto>> GetRenterRentsAsync(int renterId);
 }

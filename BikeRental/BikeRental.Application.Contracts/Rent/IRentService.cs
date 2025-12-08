@@ -1,16 +1,16 @@
 ﻿namespace BikeRental.Application.Contracts.Rent;
 /// <summary>
-/// Сервис для работы с записями аренды.
+/// Service for working with rental records.
 /// </summary>
 public interface IRentService : IApplicationService<RentDto, RentCreateUpdateDto, int>
 {
     /// <summary>
-    /// Получает все аренды для указанного велосипеда.
+    /// Gets all rentals for the specified bike.
     /// </summary>
     public Task<IList<RentDto>> GetRentsByBikeAsync(int bikeId);
 
     /// <summary>
-    /// Получает все аренды для указанного арендатора.
+    /// Gets all the rentals for the specified renter.
     /// </summary>
     public Task<IList<RentDto>> GetRentsByRenterAsync(int renterId);
 

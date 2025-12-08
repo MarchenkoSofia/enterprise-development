@@ -1,12 +1,15 @@
-﻿using BikeRental.Application.Contracts.Renter;
-using BikeRental.Application.Contracts.Rent;
+﻿using BikeRental.Application.Contracts.Rent;
+using BikeRental.Application.Contracts.Renter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeRental.Api.Controllers;
 
 /// <summary>
-/// Controller for renter (client) CRUD operations and renter-specific queries.
+/// Controller for managing renters (clients) and their specific operations.
 /// </summary>
+/// <param name="renterService">Application service for renters.</param>
+/// <param name="rentService">Application service for rentals.</param>
+/// <param name="logger">Logger instance.</param>
 [ApiController]
 [Route("api/[controller]")]
 public class RentersController(
@@ -16,31 +19,34 @@ public class RentersController(
     : CrudControllerBase<RenterDto, RenterCreateUpdateDto, int>(renterService, logger)
 {
     /// <summary>
-    /// Get all rentals performed by a specific renter.
+    /// Retrieves all rentals associated with a specific renter.
     /// </summary>
-    /// <param name="id">Renter identifier.</param>
-    /// <returns>List of RentalDto, or NoContent if none exist.</returns>
+    /// <param name="id">The unique identifier of the renter.</param>
+    /// <returns>A list of rents for the specified renter, or NoContent if none found.</returns>
+    /// <response code="200">Returns the list of rentals.</response>
+    /// <response code="204">If the renter has no rentals found.</response>
+    /// <response code="500">If an internal server error occurs.</response>
     [HttpGet("{id}/rents")]
-    [ProducesResponseType(typeof(IList<RentDto>), 200)]
-    [ProducesResponseType(204)]
-    [ProducesResponseType(500)]
+    [ProducesResponseType(typeof(IList<RentDto>), StatusCodes.Status201Created)] 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IList<RentDto>>> GetRents(int id)
     {
-        logger.LogInformation("{method} called on {controller} with id={id}",
+        logger.LogInformation("{Method} called on {Controller} with id={Id}",
             nameof(GetRents), nameof(RentersController), id);
 
         try
         {
-            var res = await rentService.GetRentsByBikeAsync(id);
+            var res = await rentService.GetRentsByRenterAsync(id);
 
-            return res != null && res.Count > 0
+            return res != null && res.Any()
                 ? Ok(res)
                 : NoContent();
         }
         catch (Exception ex)
         {
-            logger.LogError(ex,
-                "Exception in {method} of {controller}",
+            logger.LogError(ex, "Exception in {Method} of {Controller}",
                 nameof(GetRents), nameof(RentersController));
 
             return StatusCode(500, ex.Message);

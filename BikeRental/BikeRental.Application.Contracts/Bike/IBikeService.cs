@@ -1,13 +1,11 @@
-﻿
-
-namespace BikeRental.Application.Contracts.Bike;
+﻿namespace BikeRental.Application.Contracts.Bike;
 /// <summary>
-/// Сервис для работы с велосипедами.
+/// Service for working with bikes.
 /// </summary>
 public interface IBikeService : IApplicationService<BikeDto, BikeCreateUpdateDto, int>
 {
     /// <summary>
-    /// Получает список велосипедов указанной модели.
+    /// Gets a list of bikes of the specified model.
     /// </summary>
     public Task<IList<BikeDto>> GetBikesByModelAsync(int modelId);
 

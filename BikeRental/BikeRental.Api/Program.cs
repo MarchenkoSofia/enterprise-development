@@ -12,7 +12,6 @@ using BikeRental.Infrastructure.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Text.Json.Serialization;
-using Microsoft.OpenApi.Models;
 // removed: using BikeRental.Application.Service; // <-- add correct namespace if needed
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +21,7 @@ builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile(new BikeRentalProfile());
 });
+
 
 // Application Services
 builder.Services.AddScoped<IBikeService, BikeService>();
@@ -80,7 +80,7 @@ builder.Services.AddSwaggerGen(options =>
         };
     });
 
-    // XML docs (optional — files must exist)
+    // XML docs (optional ï¿½ files must exist)
     var basePath = AppContext.BaseDirectory;
     var xmlFiles = new[]
     {

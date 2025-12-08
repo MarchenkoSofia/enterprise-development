@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 namespace BikeRental.Infrastructure.EfCore;
 
 /// <summary>
-/// Контекст базы данных для аренды велосипедов, реализующий Entity Framework Core.
-/// Настраивает связи между сущностями и задаёт конфигурацию модели данных.
+/// Database context for the bike rental domain implemented with Entity Framework Core.
+/// Configures relationships between entities and defines the data model configuration.
 /// </summary>
 public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
 {
@@ -16,7 +16,7 @@ public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Велосипеды
+        // Bikes
         modelBuilder.Entity<Bike>(builder =>
         {
             builder.HasKey(b => b.Id);
@@ -28,7 +28,7 @@ public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
                    .OnDelete(DeleteBehavior.Restrict);
         });
 
-        // Модели велосипедов
+        // Bike models
         modelBuilder.Entity<Model>(builder =>
         {
             builder.HasKey(m => m.Id);
@@ -37,7 +37,7 @@ public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
                    .HasPrecision(10, 2);
         });
 
-        // Аренды
+        // Rents
         modelBuilder.Entity<Rent>(builder =>
         {
             builder.HasKey(r => r.Id);
@@ -55,7 +55,7 @@ public class BikeRentalDbContext(DbContextOptions options) : DbContext(options)
                    .OnDelete(DeleteBehavior.Restrict);
         });
 
-        // Арендаторы
+        // Renters
         modelBuilder.Entity<Renter>(builder =>
         {
             builder.HasKey(r => r.Id);

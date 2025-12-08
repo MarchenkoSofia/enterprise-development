@@ -3,45 +3,44 @@ using BikeRental.Application.Contracts.Renter;
 
 namespace BikeRental.Application.Contracts;
 
-    /// <summary>
-    /// Служба для выполнения аналитических запросов BikeRental (покрывает сценарии из BikeRental.Tests).
-    /// </summary>
-    public interface IAnalyticsService
+/// <summary>
+/// A service for performing BikeRental analytical queries (covers scenarios from BikeRental.Tests).
+/// </summary>
+public interface IAnalyticsService
 {
     /// <summary>
-    /// Получает список всех велосипедов типа Sport.
+    /// Gets a list of all Sport bikes.
     /// </summary>
-    /// <returns>Список DTO велосипедов</returns>
+    /// <returns>List of DTO bikes</returns>
     public Task<IList<BikeDto>> GetAllSportBikesAsync();
 
     /// <summary>
-    /// Получает топ-5 моделей по суммарной выручке.
+    /// Gets the top 5 models by total revenue.
     /// </summary>
-    /// <returns>Список пар (ModelId, Revenue) отсортированных по убыванию выручки.</returns>
+    /// <returns>A list of pairs (modelId, Revenue) sorted in descending order of revenue.</returns>
     public Task<IList<KeyValuePair<int, decimal>>> GetTopFiveModelsByRevenueAsync();
 
     /// <summary>
-    /// Получает топ-5 моделей по суммарному времени аренды (часы).
+    /// Gets the top 5 models by total rental time (hours).
     /// </summary>
-    /// <returns>Список пар (ModelId, TotalHours) отсортированных по убыванию часов.</returns>
+    /// <returns>A list of pairs (modelId, TotalHours) sorted in descending order of hours.</returns>
     public Task<IList<KeyValuePair<int, int>>> GetTopFiveModelsByTotalDurationAsync();
 
     /// <summary>
-    /// Возвращает минимальную, максимальную и среднюю длительность аренды.
+    /// Returns the minimum, maximum, and average rental duration.
     /// </summary>
-    /// <returns>Кортеж (Min, Max, Avg)</returns>
+    /// <returns>Tuple (Min, Max, Avg)</returns>
     public Task<(int Min, int Max, double Avg)> GetMinMaxAvgRentDurationAsync();
 
     /// <summary>
-    /// Получает суммарное время аренды (в часах) для указанного типа велосипеда.
+    /// Gets the total rental time (in hours) for the specified bike type.
     /// </summary>
-    /// <param name="type">Тип велосипеда</param>
+    /// <param name="type">Bike type</param>
     public Task<int> GetTotalRentalTimeByTypeAsync(int type);
 
     /// <summary>
-    /// Получает клиентов с наибольшим числом аренд.
+    /// Gets clients with the highest number of rents.
     /// </summary>
-    /// <returns>Список пар (RenterDto, Count) с количеством аренд; все лидеры в случае ничьей.</returns>
+    /// <returns>A list of pairs (RenterDto, Count) with the number of rents; all the leaders in case of a tie.</returns>
     public Task<IList<KeyValuePair<RenterDto, int>>> GetTopClientsByRentalCountAsync();
 }
-
