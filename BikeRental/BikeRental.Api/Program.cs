@@ -10,11 +10,13 @@ using BikeRental.Domain.Models;
 using BikeRental.Infrastructure.EfCore;
 using BikeRental.Infrastructure.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
 using System.Text.Json.Serialization;
-// removed: using BikeRental.Application.Service; // <-- add correct namespace if needed
+using BikeRenter.ServiceDefaults;
+
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
+
 
 // AutoMapper
 builder.Services.AddAutoMapper(cfg =>

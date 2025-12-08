@@ -123,7 +123,7 @@ public class AnalyticsController(
     /// <param name="type">The integer representation of the bike type (1-5).</param>
     /// <returns>Total rental hours for the specified type.</returns>
     /// <response code="200">Returns the total rental time.</response>
-    /// <response code="400">If the bike type is invalid (not between 1 and 5).</response>
+    /// <response code="400">If the bike type is invalid (not between 0 and 5).</response>
     /// <response code="500">If an internal server error occurs.</response>
     [HttpGet("rents/total-by-type")]
     [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
@@ -133,10 +133,10 @@ public class AnalyticsController(
     {
         logger.LogInformation("Getting total rental time for bike type {Type}", type);
 
-        if (type < 1 || type > 5)
+        if (type < 0 || type > 5)
         {
             logger.LogWarning("Invalid bike type: {Type}", type);
-            return BadRequest("Bike type must be between 1 and 5.");
+            return BadRequest("Bike type must be between 0 and 5.");
         }
 
         try
