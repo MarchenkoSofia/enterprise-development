@@ -80,21 +80,4 @@ public class RentService(
         return mapper.Map<List<RentDto>>(all.Where(r => r.RenterId == renterId).ToList());
     }
 
-    // /// <summary>
-    // /// Retrieves all rentals grouped by the bike identifier.
-    // /// </summary>
-    // public async Task<IList<KeyValuePair<int, IList<RentDto>>>> GetRentsGroupedByModelAsync()
-    // {
-    //     var all = await rentRepository.ReadAll();
-    //
-    //     var grouped = all
-    //         .GroupBy(r => r.BikeId)
-    //         .Select(g => new KeyValuePair<int, IList<RentDto>>(
-    //             g.Key,
-    //             mapper.Map<List<RentDto>>(g.ToList())
-    //         ))
-    //         .ToList();
-    //
-    //     return grouped;
-    // }
 }

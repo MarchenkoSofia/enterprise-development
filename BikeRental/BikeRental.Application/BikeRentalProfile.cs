@@ -18,27 +18,19 @@ public class BikeRentalProfile : Profile
     /// </summary>
     public BikeRentalProfile()
     { 
-
         // Bike Models
-
         CreateMap<Model, ModelDto>();
         CreateMap<ModelCreateUpdateDto, Model>();
-
-
+        
         // Bikes
-
         CreateMap<Bike, BikeDto>();
         CreateMap<BikeCreateUpdateDto, Bike>();
-
-
+        
         // Rents
-
         CreateMap<Rent, RentDto>();
         CreateMap<RentCreateUpdateDto, Rent>();
-
-
+        
         // Renters
-
         CreateMap<Renter, RenterDto>();
         CreateMap<RenterCreateUpdateDto, Renter>();
     }

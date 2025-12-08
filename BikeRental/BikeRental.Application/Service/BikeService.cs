@@ -71,15 +71,5 @@ public class BikeService(
         var filtered = all.Where(b => b.ModelId == modelId).ToList();
         return mapper.Map<List<BikeDto>>(filtered);
     }
-
-
-
-    // public async Task<ModelDto?> GetModelByBikeIdAsync(int bikeId)
-    // {
-    //     var bike = await bikeRepository.Read(bikeId);
-    //     if (bike == null) return null;
-    //
-    //     var model = await modelRepository.Read(bike.ModelId);
-    //     return mapper.Map<ModelDto>(model);
-    // }
+    
 }
