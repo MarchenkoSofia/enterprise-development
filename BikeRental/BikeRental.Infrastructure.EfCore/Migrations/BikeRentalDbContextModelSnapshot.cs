@@ -48,6 +48,78 @@ namespace BikeRental.Infrastructure.EfCore.Migrations
                     b.HasIndex("ModelId");
 
                     b.ToTable("Bikes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "Black",
+                            ModelId = 1,
+                            SerialNumber = "202501001"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "Red",
+                            ModelId = 2,
+                            SerialNumber = "2024R01015"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Color = "Blue",
+                            ModelId = 3,
+                            SerialNumber = "2023X03210"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Color = "Olive",
+                            ModelId = 4,
+                            SerialNumber = "2025B05077"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Color = "Yellow",
+                            ModelId = 5,
+                            SerialNumber = "2022G06342"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Color = "White",
+                            ModelId = 6,
+                            SerialNumber = "2021W08908"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Color = "Orange",
+                            ModelId = 7,
+                            SerialNumber = "2024O04556"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Color = "Graphite",
+                            ModelId = 8,
+                            SerialNumber = "2023G09999"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Color = "Silver",
+                            ModelId = 9,
+                            SerialNumber = "2025S01555"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Color = "Turquoise",
+                            ModelId = 10,
+                            SerialNumber = "2022T12640"
+                        });
                 });
 
             modelBuilder.Entity("BikeRental.Domain.Models.Model", b =>
@@ -83,6 +155,118 @@ namespace BikeRental.Infrastructure.EfCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Models");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BikeType = 1,
+                            BikeWeight = 13.800000190734863,
+                            BrakeType = "Disc hydraulic",
+                            MaxPassengerWeight = 120.0,
+                            ModelYear = 2025,
+                            PricePerHour = 7.50m,
+                            WheelSize = 29.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BikeType = 2,
+                            BikeWeight = 11.199999809265137,
+                            BrakeType = "Rim v-brake",
+                            MaxPassengerWeight = 110.0,
+                            ModelYear = 2024,
+                            PricePerHour = 8.20m,
+                            WheelSize = 27.5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BikeType = 0,
+                            BikeWeight = 15.899999618530273,
+                            BrakeType = "Disc mechanical",
+                            MaxPassengerWeight = 130.0,
+                            ModelYear = 2023,
+                            PricePerHour = 5.90m,
+                            WheelSize = 26.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BikeType = 3,
+                            BikeWeight = 12.699999809265137,
+                            BrakeType = "Disc hydraulic",
+                            MaxPassengerWeight = 125.0,
+                            ModelYear = 2025,
+                            PricePerHour = 6.80m,
+                            WheelSize = 28.0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BikeType = 3,
+                            BikeWeight = 10.399999618530273,
+                            BrakeType = "Rim",
+                            MaxPassengerWeight = 100.0,
+                            ModelYear = 2022,
+                            PricePerHour = 4.50m,
+                            WheelSize = 20.0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BikeType = 5,
+                            BikeWeight = 9.8000001907348633,
+                            BrakeType = "Rim",
+                            MaxPassengerWeight = 95.0,
+                            ModelYear = 2021,
+                            PricePerHour = 3.90m,
+                            WheelSize = 24.0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BikeType = 1,
+                            BikeWeight = 12.100000381469727,
+                            BrakeType = "Disc mechanical",
+                            MaxPassengerWeight = 115.0,
+                            ModelYear = 2024,
+                            PricePerHour = 6.20m,
+                            WheelSize = 27.5
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BikeType = 4,
+                            BikeWeight = 18.299999237060547,
+                            BrakeType = "Disc hydraulic",
+                            MaxPassengerWeight = 140.0,
+                            ModelYear = 2023,
+                            PricePerHour = 9.10m,
+                            WheelSize = 29.0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BikeType = 0,
+                            BikeWeight = 8.8999996185302734,
+                            BrakeType = "Disc hydraulic",
+                            MaxPassengerWeight = 105.0,
+                            ModelYear = 2025,
+                            PricePerHour = 10.50m,
+                            WheelSize = 28.0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BikeType = 0,
+                            BikeWeight = 16.5,
+                            BrakeType = "Drum",
+                            MaxPassengerWeight = 135.0,
+                            ModelYear = 2022,
+                            PricePerHour = 5.20m,
+                            WheelSize = 26.0
+                        });
                 });
 
             modelBuilder.Entity("BikeRental.Domain.Models.Rent", b =>
@@ -112,6 +296,88 @@ namespace BikeRental.Infrastructure.EfCore.Migrations
                     b.HasIndex("RenterId");
 
                     b.ToTable("Rents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BikeId = 1,
+                            Duration = 2,
+                            RenterId = 1,
+                            StartTime = new DateTime(2025, 8, 2, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BikeId = 2,
+                            Duration = 1,
+                            RenterId = 2,
+                            StartTime = new DateTime(2025, 8, 3, 14, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BikeId = 3,
+                            Duration = 2,
+                            RenterId = 3,
+                            StartTime = new DateTime(2025, 8, 5, 10, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BikeId = 4,
+                            Duration = 3,
+                            RenterId = 4,
+                            StartTime = new DateTime(2025, 8, 7, 16, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BikeId = 5,
+                            Duration = 4,
+                            RenterId = 5,
+                            StartTime = new DateTime(2025, 8, 10, 11, 45, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BikeId = 2,
+                            Duration = 5,
+                            RenterId = 6,
+                            StartTime = new DateTime(2025, 8, 12, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BikeId = 3,
+                            Duration = 1,
+                            RenterId = 7,
+                            StartTime = new DateTime(2025, 8, 14, 15, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BikeId = 4,
+                            Duration = 2,
+                            RenterId = 8,
+                            StartTime = new DateTime(2025, 8, 16, 9, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BikeId = 1,
+                            Duration = 3,
+                            RenterId = 9,
+                            StartTime = new DateTime(2025, 8, 18, 12, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BikeId = 2,
+                            Duration = 4,
+                            RenterId = 10,
+                            StartTime = new DateTime(2025, 8, 20, 17, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("BikeRental.Domain.Models.Renter", b =>
@@ -147,6 +413,88 @@ namespace BikeRental.Infrastructure.EfCore.Migrations
                         .IsUnique();
 
                     b.ToTable("Renters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LastName = "Kovalev",
+                            MiddleName = "Ilyich",
+                            Name = "Dmitry",
+                            PhoneNumber = "+7 901 111-11-11"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LastName = "Egorova",
+                            MiddleName = "Antonovna",
+                            Name = "Sofia",
+                            PhoneNumber = "+7 902 222-22-22"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LastName = "Leontiev",
+                            MiddleName = "Olegovich",
+                            Name = "Maxim",
+                            PhoneNumber = "+7 903 333-33-33"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            LastName = "Romanova",
+                            MiddleName = "Sergeevna",
+                            Name = "Maria",
+                            PhoneNumber = "+7 904 444-44-44"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            LastName = "Gusev",
+                            MiddleName = "Valerievich",
+                            Name = "Igor",
+                            PhoneNumber = "+7 905 555-55-55"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            LastName = "Frolova",
+                            MiddleName = "Alexandrovna",
+                            Name = "Alena",
+                            PhoneNumber = "+7 906 666-66-66"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            LastName = "Semenov",
+                            MiddleName = "Andreevich",
+                            Name = "Pavel",
+                            PhoneNumber = "+7 907 777-77-77"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            LastName = "Morozova",
+                            MiddleName = "Dmitrievna",
+                            Name = "Ekaterina",
+                            PhoneNumber = "+7 908 888-88-88"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            LastName = "Nazarov",
+                            MiddleName = "Petrovich",
+                            Name = "Artur",
+                            PhoneNumber = "+7 909 999-99-99"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            LastName = "Voronova",
+                            MiddleName = "Igorevna",
+                            Name = "Olga",
+                            PhoneNumber = "+7 900 000-00-00"
+                        });
                 });
 
             modelBuilder.Entity("BikeRental.Domain.Models.Bike", b =>

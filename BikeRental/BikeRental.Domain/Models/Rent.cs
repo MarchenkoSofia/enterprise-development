@@ -28,7 +28,7 @@ public class Rent
     /// <summary>
     /// Bike navigation property for Rent.
     /// </summary>
-    public required virtual Bike Bike { get; set; }
+    public virtual Bike? Bike { get; set; }
 
     /// <summary>
     /// Unique identifier of the renter.
@@ -38,5 +38,5 @@ public class Rent
     /// <summary>
     /// Renter to whom it is Rent.
     /// </summary>
-    public required virtual Renter Renter { get; set; }
+    public virtual Renter? Renter { get; set; }
 }

@@ -1,4 +1,8 @@
 ﻿namespace BikeRental.Application.Contracts;
+
+/// <summary>
+/// Generic service interface for managing DTOs (Data Transfer Objects).
+/// </summary>
 public interface IApplicationService<TDto, TCreateUpdateDto, TKey>
  where TDto : class
  where TCreateUpdateDto : class

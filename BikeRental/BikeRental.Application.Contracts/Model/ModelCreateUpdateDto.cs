@@ -20,6 +20,6 @@ public record ModelCreateUpdateDto(
     int? ModelYear,
     decimal PricePerHour,
 
-    [Range(1, 5, ErrorMessage = "BikeType must be between 1 and 5.")]
+    [Range(1, 5, ErrorMessage = "BikeType must be between 0 and 5.")]
     int? BikeType
 );

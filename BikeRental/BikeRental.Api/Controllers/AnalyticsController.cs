@@ -120,7 +120,7 @@ public class AnalyticsController(
     /// <summary>
     /// Calculates the total rental time (in hours) for a specific bike type.
     /// </summary>
-    /// <param name="type">The integer representation of the bike type (1-5).</param>
+    /// <param name="type">The integer representation of the bike type (0-5).</param>
     /// <returns>Total rental hours for the specified type.</returns>
     /// <response code="200">Returns the total rental time.</response>
     /// <response code="400">If the bike type is invalid (not between 0 and 5).</response>

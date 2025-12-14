@@ -10,6 +10,4 @@ namespace BikeRental.Api.Controllers;
 public class RentsController(
     IRentService service,
     ILogger<RentsController> logger)
-    : CrudControllerBase<RentDto, RentCreateUpdateDto, int>(service, logger)
-{
-}
+    : CrudControllerBase<RentDto, RentCreateUpdateDto, int>(service, logger);

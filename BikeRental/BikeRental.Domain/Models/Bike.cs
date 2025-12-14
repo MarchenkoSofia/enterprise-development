@@ -28,5 +28,5 @@ public class Bike
     /// <summary>
     /// Bike model navigation property.
     /// </summary>
-    public required virtual Model Model { get; set; }
+    public virtual Model? Model { get; set; }
 }
