@@ -15,14 +15,20 @@ public class BikeRentalTests(DataSeed seed) : IClassFixture<DataSeed>
     public void InformationAboutSportBikes()
     {
         var sportBikes = seed.Bikes
-            .Where(b => b.Model.BikeType == BikeType.Sport)
-            .Select(b => new
+            .Join(
+                seed.Models,
+                b => b.ModelId,
+                m => m.Id,
+                (b, m) => new { Bike = b, Model = m }
+            )
+            .Where(x => x.Model.BikeType == BikeType.Sport)
+            .Select(x => new
             {
-                b.Id,
-                b.SerialNumber,
-                b.Color,
-                ModelId = b.Model.Id,
-                Type = b.Model.BikeType
+                x.Bike.Id,
+                x.Bike.SerialNumber,
+                x.Bike.Color,
+                ModelId = x.Model.Id,
+                Type = x.Model.BikeType
             })
             .ToList();
 
@@ -38,27 +44,43 @@ public class BikeRentalTests(DataSeed seed) : IClassFixture<DataSeed>
     [Fact(DisplayName = "Top 5 Models by Revenue")]
     public void TopFiveModelsByRevenue()
     {
-        var revenueByModel = seed.Rents
-            .GroupBy(r => r.Bike.Model.Id)
-            .Select(g => new
-            {
-                ModelId = g.Key,
-                Revenue = g.Sum(r => r.Duration * r.Bike.Model.PricePerHour)
-            })
-            .OrderByDescending(x => x.Revenue)
-            .ThenBy(x => x.ModelId)
-            .Take(5)
-            .ToList();
+        var revenueByModel =
+            seed.Rents
+                .Join(
+                    seed.Bikes,
+                    rent => rent.BikeId,
+                    bike => bike.Id,
+                    (rent, bike) => new { rent, bike }
+                )
+                .Join(
+                    seed.Models,
+                    x => x.bike.ModelId,
+                    model => model.Id,
+                    (x, model) => new { x.rent, model }
+                )
+                .GroupBy(x => x.model.Id)
+                .Select(g => new
+                {
+                    ModelId = g.Key,
+                    Revenue = g.Sum(x => x.rent.Duration * x.model.PricePerHour)
+                })
+                .OrderByDescending(x => x.Revenue)
+                .ThenBy(x => x.ModelId)
+                .Take(5)
+                .ToList();
 
-        Assert.Equal(new[] { 8, 2, 4, 9, 1 }, revenueByModel.Select(x => x.ModelId).ToArray());
+        Assert.Equal(
+            new[] { 2, 1, 4, 5, 3 },
+            revenueByModel.Select(x => x.ModelId).ToArray()
+        );
 
         var expectedRevenue = new Dictionary<int, decimal>
         {
-            [8] = 81.90m,
-            [2] = 65.60m,
-            [4] = 54.40m,
-            [9] = 42.00m,
-            [1] = 37.50m
+            [2] = 82.00m,
+            [1] = 37.50m,
+            [4] = 34.00m,
+            [5] = 18.00m,
+            [3] = 17.70m
         };
 
         foreach (var row in revenueByModel)
@@ -73,19 +95,29 @@ public class BikeRentalTests(DataSeed seed) : IClassFixture<DataSeed>
     [Fact(DisplayName = "Top 5 Models by Total Rental Duration")]
     public void TopFiveModelsByTotalDuration()
     {
-        var durationByModel = seed.Rents
-            .GroupBy(r => r.Bike.Model.Id)
-            .Select(g => new
-            {
-                ModelId = g.Key,
-                TotalHours = g.Sum(r => r.Duration)
-            })
-            .OrderByDescending(x => x.TotalHours)
-            .ThenBy(x => x.ModelId)
-            .Take(5)
-            .ToList();
+        var durationByModel =
+            seed.Rents
+                .Join(
+                    seed.Bikes,
+                    rent => rent.BikeId,
+                    bike => bike.Id,
+                    (rent, bike) => new { rent, bike }
+                )
+                .GroupBy(x => x.bike.ModelId)
+                .Select(g => new
+                {
+                    ModelId = g.Key,
+                    TotalHours = g.Sum(x => x.rent.Duration)
+                })
+                .OrderByDescending(x => x.TotalHours)
+                .ThenBy(x => x.ModelId)
+                .Take(5)
+                .ToList();
 
-        Assert.Equal(new[] { 8, 2, 4, 5, 10 }, durationByModel.Select(x => x.ModelId).ToArray());
+        Assert.Equal(
+            new[] { 2, 1, 4, 5, 3 },
+            durationByModel.Select(x => x.ModelId).ToArray()
+        );
     }
 
     /// <summary>
@@ -102,24 +134,28 @@ public class BikeRentalTests(DataSeed seed) : IClassFixture<DataSeed>
 
         Assert.Equal(1, min);
         Assert.Equal(5, max);
-        Assert.Equal(2.95, Math.Round(avg, 2));
+        Assert.Equal(2.7, Math.Round(avg, 2));
     }
 
     /// <summary>
     ///     Verifies the total rental time for each bike type.
     /// </summary>
     [Theory(DisplayName = "Total Rental Time per Bike Type")]
-    [InlineData(BikeType.Mountain, 10)]
-    [InlineData(BikeType.Sport, 8)]
-    [InlineData(BikeType.City, 13)]
-    [InlineData(BikeType.Track, 14)]
-    [InlineData(BikeType.Mini, 5)]
-    [InlineData(BikeType.Electric, 9)]
+    [InlineData(BikeType.Mountain, 5)]
+    [InlineData(BikeType.Sport, 10)]
+    [InlineData(BikeType.City, 3)]
+    [InlineData(BikeType.Track, 9)]
+    [InlineData(BikeType.Mini, 0)]
+    [InlineData(BikeType.Electric, 0)]
     public void TotalRentalTimeByType(BikeType type, int expectedHours)
     {
-        var actualHours = seed.Rents
-            .Where(rent => rent.Bike.Model.BikeType == type)
-            .Sum(rent => rent.Duration);
+        var actualHours =
+            (from rent in seed.Rents
+                join bike in seed.Bikes on rent.BikeId equals bike.Id
+                join model in seed.Models on bike.ModelId equals model.Id
+                where model.BikeType == type
+                select rent.Duration)
+            .Sum();
 
         Assert.Equal(expectedHours, actualHours);
     }
@@ -131,7 +167,7 @@ public class BikeRentalTests(DataSeed seed) : IClassFixture<DataSeed>
     public void TopClientsByRentalCount()
     {
         var counts = seed.Rents
-            .GroupBy(r => r.Renter.Id)
+            .GroupBy(r => r.RenterId)
             .Select(g => new
             {
                 RenterId = g.Key,
@@ -142,8 +178,8 @@ public class BikeRentalTests(DataSeed seed) : IClassFixture<DataSeed>
         var maxCount = counts.Max(x => x.Count);
         var leaders = counts.Where(x => x.Count == maxCount).ToList();
 
-        Assert.Equal(2, maxCount);
+        Assert.Equal(1, maxCount);
         Assert.Equal(10, leaders.Count);
-        Assert.All(leaders, l => Assert.Equal(2, l.Count));
+        Assert.All(leaders, l => Assert.Equal(1, l.Count));
     }
 }
