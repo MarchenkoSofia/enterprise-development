@@ -8,15 +8,31 @@ service ModelGrpcService {
   rpc AddModelsStream (stream AddModelResponse) returns (stream AddModelRequest);
 }
 
+enum BrakeType {
+  BRAKE_TYPE_UNSPECIFIED = 0;
+  DISC = 1;
+  RIM = 2;
+  V_BRAKE = 3;
+}
+
+enum GrpcBikeType
+{
+    City = 0;
+    Mountain = 1;
+    Sport = 2;
+    Track = 3;
+    Electric = 4;
+    Mini = 5;
+}
 
 message AddModelRequest {
   double wheel_size = 1;             
-  double max_passenger_weight = 2;    
-  double bike_weight = 3;           
-  string brake_type = 4;             
+  double max_passenger_weight = 2;   
+  double bike_weight = 3;            
+  BrakeType brake_type = 4;          
   int32 model_year = 5;              
-  double price_per_hour = 6;        
-  string bike_type = 7;              
+  double price_per_hour = 6;         
+  GrpcBikeType bike_type = 7;            
 }
 
 message AddModelResponse {

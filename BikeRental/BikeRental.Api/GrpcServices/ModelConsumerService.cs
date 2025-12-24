@@ -1,4 +1,4 @@
-﻿using BikeRental.Domain.Enum;
+﻿using AutoMapper;
 using BikeRental.Domain.Models;
 using BikeRental.Infrastructure.EfCore;
 using Bikes.Contracts.Grpc;
@@ -10,26 +10,27 @@ namespace BikeRental.Api.GrpcServices;
 /// <summary>
 /// Background gRPC client that consumes generated bike models and saves them to the database.
 /// </summary>
-
 public class ModelConsumerService : BackgroundService
 {
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly ILogger<ModelConsumerService> _logger;
-    private readonly IConfiguration _config;
+    private readonly IMapper _mapper;
     private readonly string _generatorUrl;
     private readonly int _batchSize;
 
     /// <summary>
-    /// Initializes the consumer service and reads generator configuration settings.
+    /// Initializes a new instance of the <see cref="ModelConsumerService"/> class.
     /// </summary>
+    /// <exception cref="InvalidOperationException">Thrown when GeneratorGrpcUrl is not configured.</exception>
     public ModelConsumerService(
         IServiceScopeFactory scopeFactory,
         ILogger<ModelConsumerService> logger,
-        IConfiguration config)
+        IConfiguration config, 
+        IMapper mapper)
     {
         _scopeFactory = scopeFactory;
         _logger = logger;
-        _config = config;
+        _mapper = mapper;
 
         _generatorUrl = config["GeneratorGrpcUrl"]
             ?? throw new InvalidOperationException("GeneratorGrpcUrl not configured");
@@ -38,12 +39,12 @@ public class ModelConsumerService : BackgroundService
     }
 
     /// <summary>
-    /// Opens a gRPC stream to the model generator and processes incoming models in batches.
+    /// Connects to the gRPC stream and processes incoming bike models in a loop.
     /// </summary>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _logger.LogInformation(
-            "Подключение к gRPC‑генератору моделей: {Url}, размер батча: {BatchSize}",
+            "Connecting to Bike Model Generator gRPC service at {Url} with BatchSize: {BatchSize}",
             _generatorUrl, _batchSize);
 
         using var channel = GrpcChannel.ForAddress(_generatorUrl);
@@ -60,7 +61,7 @@ public class ModelConsumerService : BackgroundService
                 batch.Add(model);
 
                 _logger.LogInformation(
-                    "Получена модель: Тип={Type}, Год={Year}, Цена={Price}",
+                    "Received model: Type={Type}, Year={Year}, Price={Price}",
                     model.BikeType, model.ModelYear, model.PricePerHour);
 
                 if (batch.Count >= _batchSize)
@@ -74,21 +75,19 @@ public class ModelConsumerService : BackgroundService
             {
                 await SaveBatchAsync(batch, stoppingToken);
             }
-
-            await call.RequestStream.CompleteAsync();
         }
         catch (OperationCanceledException)
         {
-            _logger.LogInformation("Остановка ModelConsumerService по токену отмены");
+            _logger.LogInformation("ModelConsumerService is stopping due to cancellation token.");
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Ошибка при получении моделей по gRPC");
+            _logger.LogError(ex, "Error occurred while consuming models via gRPC.");
         }
     }
 
     /// <summary>
-    /// Persists a batch of generated bike models within a scoped database context.
+    /// Persists a batch of generated bike models to the database within a new scope.
     /// </summary>
     private async Task SaveBatchAsync(
         IEnumerable<AddModelRequest> batch,
@@ -102,51 +101,20 @@ public class ModelConsumerService : BackgroundService
             await SaveModelAsync(modelData, dbContext, cancellationToken);
         }
 
-        _logger.LogInformation("→ Сохранён батч из {Count} моделей", batch.Count());
+        _logger.LogInformation("Batch of {Count} models saved successfully.", batch.Count());
     }
 
     /// <summary>
-    /// Maps a single gRPC model request into a domain entity and saves it to the database.
+    /// Maps a single gRPC model request into a domain entity via AutoMapper and adds it to the context.
     /// </summary>
-    private static async Task SaveModelAsync(
-    AddModelRequest modelData,
-    BikeRentalDbContext dbContext,
-    CancellationToken cancellationToken)
+    private async Task SaveModelAsync(
+        AddModelRequest modelData,
+        BikeRentalDbContext dbContext,
+        CancellationToken cancellationToken)
     {
-        var bikeType = MapBikeType(modelData.BikeType);
-
-        var model = new Model
-        {
-            Id = 0,
-            WheelSize = modelData.WheelSize,
-            MaxPassengerWeight = modelData.MaxPassengerWeight,
-            BikeWeight = modelData.BikeWeight,
-            BrakeType = modelData.BrakeType,
-            ModelYear = modelData.ModelYear,
-            PricePerHour = (decimal)modelData.PricePerHour,
-            BikeType = bikeType
-        };
+        var model = _mapper.Map<Model>(modelData);
 
         dbContext.Models.Add(model);
         await dbContext.SaveChangesAsync(cancellationToken);
     }
-
-    /// <summary>
-    /// Converts a gRPC bike type string into the corresponding domain BikeType value.
-    /// </summary>
-    private static BikeType MapBikeType(string grpcType)
-    {
-        return grpcType.ToLowerInvariant() switch
-        {
-            "mountain" => BikeType.Mountain,
-            "city" => BikeType.City,
-            "electric" => BikeType.Electric,
-            "track" => BikeType.Track,
-            "mini" => BikeType.Mini,
-            "sport" => BikeType.Sport,
-
-            _ => BikeType.Sport 
-        };
-    }
-
 }

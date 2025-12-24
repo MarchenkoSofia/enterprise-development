@@ -1,3 +1,5 @@
+using BikeRental.Api;
+using BikeRental.Api.GrpcServices;
 using BikeRental.Application;
 using BikeRental.Application.Contracts;
 using BikeRental.Application.Contracts.Bike;
@@ -9,10 +11,9 @@ using BikeRental.Domain;
 using BikeRental.Domain.Models;
 using BikeRental.Infrastructure.EfCore;
 using BikeRental.Infrastructure.EfCore.Repositories;
+using BikeRenter.ServiceDefaults;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using BikeRenter.ServiceDefaults;
-using BikeRental.Api.GrpcServices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,8 @@ builder.AddServiceDefaults();
 // AutoMapper
 builder.Services.AddAutoMapper(cfg =>
 {
-    cfg.AddProfile(new BikeRentalProfile());
+    cfg.AddProfile<BikeRentalProfile>();
+    cfg.AddProfile<BikeRentalGrpcProfile>();
 });
 
 
