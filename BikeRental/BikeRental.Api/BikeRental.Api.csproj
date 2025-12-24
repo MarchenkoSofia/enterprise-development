@@ -10,6 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.1.0" />
     <PackageReference Include="AutoMapper" Version="15.1.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+    <PackageReference Include="Grpc.Core.Api" Version="2.52.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,6 +26,12 @@
     <ProjectReference Include="..\BikeRental.Application\BikeRental.Application.csproj" />
     <ProjectReference Include="..\BikeRental.Infrastructure.EfCore\BikeRental.Infrastructure.EfCore.csproj" />
     <ProjectReference Include="..\BikeRenter.ServiceDefaults\BikeRenter.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\BikeRental.GrpcContracts\Protos\model.proto" GrpcServices="Client">
+      <Link>Protos\model.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

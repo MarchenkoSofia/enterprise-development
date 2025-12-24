@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-BikeRental.Grpc.Server-7fcbb2c6-6969-47f4-aa88-bf3046bf498c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<AspireServiceDefaults Include="GrpcDefaultConnection" />
+    <PackageReference Include="Bogus" Version="35.6.5" />
+    <PackageReference Include="Google.Protobuf" Version="3.33.2" />
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.49.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.49.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BikeRenter.ServiceDefaults\BikeRenter.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\BikeRental.GrpcContracts\Protos\model.proto" GrpcServices="Server">
+      <Link>Protos\model.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+</Project>

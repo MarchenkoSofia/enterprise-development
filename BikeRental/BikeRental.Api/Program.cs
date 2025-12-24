@@ -12,6 +12,7 @@ using BikeRental.Infrastructure.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using BikeRenter.ServiceDefaults;
+using BikeRental.Api.GrpcServices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -99,6 +100,8 @@ builder.Services.AddSwaggerGen(options =>
             options.IncludeXmlComments(xmlPath);
     }
 });
+
+builder.Services.AddHostedService<ModelConsumerService>();
 
 var app = builder.Build();
 

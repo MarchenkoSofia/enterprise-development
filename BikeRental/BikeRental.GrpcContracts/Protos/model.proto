@@ -1,0 +1,26 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Bikes.Contracts.Grpc";
+
+package models;
+
+service ModelGrpcService {
+  rpc AddModelsStream (stream AddModelResponse) returns (stream AddModelRequest);
+}
+
+
+message AddModelRequest {
+  double wheel_size = 1;             
+  double max_passenger_weight = 2;    
+  double bike_weight = 3;           
+  string brake_type = 4;             
+  int32 model_year = 5;              
+  double price_per_hour = 6;        
+  string bike_type = 7;              
+}
+
+message AddModelResponse {
+  bool success = 1;
+  string message = 2;
+  int32 model_id = 3;                
+}
